@@ -2,6 +2,7 @@ class Bloom < Formula
   desc "Config-driven terminal updater for developer tools"
   homepage "https://github.com/stellarjmr/bloom"
   license "MIT"
+  version "0.4.0"
 
   on_arm do
     url "https://github.com/stellarjmr/bloom/releases/download/v0.4.0/bm-darwin-arm64.tar.gz"
