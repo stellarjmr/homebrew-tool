@@ -10,11 +10,18 @@ Custom Homebrew Cask tap.
 brew tap stellarjmr/tool
 ```
 
-### Install a Cask
+### Install a Formula or Cask
 
 ```bash
+brew install stellarjmr/tool/<formula-name>
 brew install --cask stellarjmr/tool/<cask-name>
 ```
+
+### Available Formulae
+
+| Formula | Install Command |
+|---------|----------------|
+| Bloom | `brew install stellarjmr/tool/bloom` |
 
 ### Available Casks
 
