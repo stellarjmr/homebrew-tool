@@ -2,7 +2,6 @@ class Bloom < Formula
   desc "Config-driven terminal updater for developer tools"
   homepage "https://github.com/stellarjmr/bloom"
   url "https://github.com/stellarjmr/bloom/archive/refs/tags/v0.1.0.tar.gz"
-  version "0.1.0"
   sha256 "d80140bc73acea13900550780c7e35c99d04606cebe1228f43003dc6a1991f50"
   license "MIT"
 
