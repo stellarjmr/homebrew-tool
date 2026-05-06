@@ -13,7 +13,7 @@ class Bloom < Formula
       "-o", libexec/"bloom-core",
       "./cmd/bloom"
 
-    chmod 0755, "bloom", "bm"
+    chmod 0755, ["bloom", "bm"]
     bin.install "bloom", "bm"
   end
 
