@@ -1,24 +1,27 @@
 class Bloom < Formula
   desc "Config-driven terminal updater for developer tools"
   homepage "https://github.com/stellarjmr/bloom"
-  url "https://github.com/stellarjmr/bloom/archive/refs/tags/v0.3.0.tar.gz"
-  sha256 "d20c1ca304ecbf500bbb6fb008198074fc76c5363baec84108d8341131380d80"
   license "MIT"
 
-  depends_on "go" => :build
+  on_arm do
+    url "https://github.com/stellarjmr/bloom/releases/download/v0.4.0/bm-darwin-arm64.tar.gz"
+    sha256 "4150bc45100b6f2cadd5e48fa4d2f9cecbe900d28ae170abd3b48221708477aa"
+  end
+
+  on_intel do
+    url "https://github.com/stellarjmr/bloom/releases/download/v0.4.0/bm-darwin-amd64.tar.gz"
+    sha256 "22fc7b344b0c479de14c1682d7f6a6b9182f856689b1f676c371b7fae83179c2"
+  end
 
   def install
-    system "go", "build",
-      "-ldflags=-s -w -X github.com/stellarjmr/bloom/internal/bloom.Version=#{version}",
-      "-o", libexec/"bm-core",
-      "./cmd/bloom"
-
     chmod 0755, "bm"
+    chmod 0755, "bm-core"
     bin.install "bm"
+    libexec.install "bm-core"
   end
 
   test do
-    assert_match "bm #{version}", shell_output("#{bin}/bm --version")
+    assert_match "bm v#{version}", shell_output("#{bin}/bm --version")
     (testpath/"config.toml").write <<~TOML
       [settings]
       progress_width = 8
@@ -29,9 +32,8 @@ class Bloom < Formula
 
       [tasks.npm]
       enabled = false
-      install_hint = "brew install node"
     TOML
-    assert_match "[━━━━━━━━] 100% · npm disabled",
+    assert_match "no available tasks selected",
       shell_output("#{bin}/bm update --dry-run --config #{testpath}/config.toml")
   end
 end
