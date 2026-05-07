@@ -1,15 +1,15 @@
 class Bloom < Formula
   desc "Config-driven terminal updater for developer tools"
   homepage "https://github.com/stellarjmr/bloom"
-  version "0.5.2"
+  version "0.5.3"
   license "MIT"
 
   if Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/bloom/releases/download/v0.5.2/bm-darwin-arm64.tar.gz"
-    sha256 "3a2bba8d379d4360c739d1e43b3e028456e74ce685495e9dce3685a89c9d4249"
+    url "https://github.com/stellarjmr/bloom/releases/download/v0.5.3/bm-darwin-arm64.tar.gz"
+    sha256 "f825e94e615fb02389844b10cb3073a7391e062bfe475318f48eb3949dde4d7f"
   else
-    url "https://github.com/stellarjmr/bloom/releases/download/v0.5.2/bm-darwin-amd64.tar.gz"
-    sha256 "9bf42770985e192e480690c41efd19b8b48dc210e8bb459ea962ee53547c2110"
+    url "https://github.com/stellarjmr/bloom/releases/download/v0.5.3/bm-darwin-amd64.tar.gz"
+    sha256 "e21b1873f034f8b2dc8ec19b69d87a60c8bd71db265900e5b48e50bfca9e5ff7"
   end
 
   def install
