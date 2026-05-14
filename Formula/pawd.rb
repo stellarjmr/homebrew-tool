@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
-require_relative "../lib/private_github_release_download_strategy"
-
 class Pawd < Formula
   desc "macOS desktop pet selector and daemon"
   homepage "https://github.com/stellarjmr/pawd"
   version "0.1.4"
 
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/pawd/releases/download/v0.1.4/pawd-v0.1.4-darwin-arm64.tar.gz",
-        using: GitHubPrivateRepositoryReleaseDownloadStrategy
+    url "https://github.com/stellarjmr/pawd/releases/download/v0.1.4/pawd-v0.1.4-darwin-arm64.tar.gz"
     sha256 "44c6e0ef4fdbaba561f408558e7575ad168ff66da46d8a2c95312e7992c5d994"
   end
 
