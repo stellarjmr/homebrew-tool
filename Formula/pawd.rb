@@ -5,12 +5,12 @@ require_relative "../lib/private_github_release_download_strategy"
 class Pawd < Formula
   desc "macOS desktop pet selector and daemon"
   homepage "https://github.com/stellarjmr/pawd"
-  version "0.1.2"
+  version "0.1.3"
 
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/pawd/releases/download/v0.1.2/pawd-v0.1.2-darwin-arm64.tar.gz",
+    url "https://github.com/stellarjmr/pawd/releases/download/v0.1.3/pawd-v0.1.3-darwin-arm64.tar.gz",
         using: GitHubPrivateRepositoryReleaseDownloadStrategy
-    sha256 "17b5e0729c41839ac3eb968033f370062e30022b4abbeb4200a59500b074de3b"
+    sha256 "3b8e35090eaa1240c321e0e4249a4c7c7aa65a7e9411f0ab3f0d55123781b16a"
   end
 
   def install
