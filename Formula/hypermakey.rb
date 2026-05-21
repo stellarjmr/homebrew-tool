@@ -22,6 +22,22 @@ class Hypermakey < Formula
     error_log_path var/"log/hypermakey.log"
   end
 
+  def caveats
+    <<~EOS
+      hypermakey requires macOS Accessibility permission before Caps Lock can be remapped:
+
+        System Settings → Privacy & Security → Accessibility
+
+      Grant permissions to:
+
+        #{opt_bin}/hypermakey
+
+      Then restart the service:
+
+        brew services restart stellarjmr/tool/hypermakey
+    EOS
+  end
+
   test do
     assert_match version.to_s, shell_output("#{bin}/hypermakey --version")
   end
