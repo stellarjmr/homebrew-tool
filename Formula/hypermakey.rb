@@ -4,7 +4,7 @@ class Hypermakey < Formula
   desc "Minimal macOS Caps Lock to Hyper key daemon"
   homepage "https://github.com/stellarjmr/hypermakey"
   url "https://github.com/stellarjmr/hypermakey/archive/refs/tags/v0.1.1.tar.gz"
-  sha256 "9e881183aa79a2dd75746dd35d71a75490b9169099dd0e47bfc5b89b2e752349"
+  sha256 "4f1301aabfd899feb63c19acfb914e908389bf0697e4ed919f8fb0076573bc34"
   license "MIT"
 
   depends_on "rust" => :build
