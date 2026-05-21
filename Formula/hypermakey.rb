@@ -3,15 +3,15 @@
 class Hypermakey < Formula
   desc "Minimal macOS Caps Lock to Hyper key daemon"
   homepage "https://github.com/stellarjmr/hypermakey"
-  url "https://github.com/stellarjmr/hypermakey/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "18a08a13850eff666ac50b2fbde59857c52d8790e22683b6a832e5d50ab8eab8"
+  url "https://github.com/stellarjmr/hypermakey/releases/download/v0.1.0/hypermakey-v0.1.0-aarch64-apple-darwin.tar.gz"
+  sha256 "1ad9283498e03d8833066c9c5e80d388a4c950862b4de0056884c0094520a7d2"
   license "MIT"
 
-  depends_on "rust" => :build
+  depends_on arch: :arm64
   depends_on :macos
 
   def install
-    system "cargo", "install", *std_cargo_args
+    bin.install "hypermakey"
   end
 
   service do
