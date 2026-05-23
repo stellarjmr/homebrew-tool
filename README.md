@@ -22,6 +22,7 @@ brew install --cask stellarjmr/tool/<cask-name>
 | Formula | Install Command |
 |---------|----------------|
 | Bloom | `brew install stellarjmr/tool/bloom` |
+| codelim | `brew install stellarjmr/tool/codelim` |
 | pawd | `brew install stellarjmr/tool/pawd` |
 
 ### Available Casks
