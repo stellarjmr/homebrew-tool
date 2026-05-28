@@ -3,11 +3,11 @@
 class Codelim < Formula
   desc "Minimal local Codex quota checker"
   homepage "https://github.com/stellarjmr/codelim"
-  version "0.1.0"
+  version "0.1.1"
 
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/codelim/releases/download/v0.1.0/codelim-v0.1.0-macos-arm64.tar.gz"
-    sha256 "284a7cb5beaddea98b896878f32098a3e51869dd69cc62b9dbfbd60945b14cd0"
+    url "https://github.com/stellarjmr/codelim/releases/download/v0.1.1/codelim-v0.1.1-macos-arm64.tar.gz"
+    sha256 "8fe231f0491b8070297d63ef69b2edc520f5697e57dfa8a2fe2d705cc2137c4f"
   end
 
   def install
