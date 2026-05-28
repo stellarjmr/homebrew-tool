@@ -1,6 +1,6 @@
 # homebrew-tool
 
-Custom Homebrew Cask tap.
+Custom Homebrew tap.
 
 ## Usage
 
@@ -23,19 +23,17 @@ brew install --cask stellarjmr/tool/<cask-name>
 |---------|----------------|
 | Bloom | `brew install stellarjmr/tool/bloom` |
 | codelim | `brew install stellarjmr/tool/codelim` |
+| hypermakey | `brew install stellarjmr/tool/hypermakey` |
 | pawd | `brew install stellarjmr/tool/pawd` |
 
 ### Available Casks
 
-| Cask | Install Command |
-|------|----------------|
-| Boring Notch | `brew install --cask stellarjmr/tool/boring-notch` |
-| OVITO | `brew install --cask stellarjmr/tool/ovito` |
-| Vimari | `brew install --cask stellarjmr/tool/vimari` |
+_None currently._
 
 ### Uninstall
 
 ```bash
+brew uninstall <formula-name>
 brew uninstall --cask <cask-name>
 ```
 
