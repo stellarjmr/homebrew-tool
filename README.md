@@ -28,7 +28,9 @@ brew install --cask stellarjmr/tool/<cask-name>
 
 ### Available Casks
 
-_None currently._
+| Cask | Install Command |
+|------|----------------|
+| SailKeys | `brew install --cask stellarjmr/tool/sailkeys` |
 
 ### Uninstall
 
