@@ -1,7 +1,6 @@
 class Bloom < Formula
   desc "Config-driven terminal updater for developer tools"
   homepage "https://github.com/stellarjmr/bloom"
-  version "0.6.22"
   license "MIT"
 
   if Hardware::CPU.arm?
