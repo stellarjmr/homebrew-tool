@@ -5,8 +5,8 @@ class Codelim < Formula
   homepage "https://github.com/stellarjmr/codelim"
 
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/codelim/releases/download/v0.1.4/codelim-v0.1.4-macos-arm64.tar.gz"
-    sha256 "3075d67e5c8a40766469a95b6a8bbac5933b3d54beb2891ac30cc9e36e4bead1"
+    url "https://github.com/stellarjmr/codelim/releases/download/v0.1.5/codelim-v0.1.5-macos-arm64.tar.gz"
+    sha256 "1da7da69a5e7767cfc5a6a9f208cd2c6ff1583d343a3fdc707d54de3459c2796"
   end
 
   def install
