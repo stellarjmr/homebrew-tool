@@ -34,10 +34,10 @@ jobs:
           fi
 
           version=${tag#v}
-          app_asset="Read-Frog-${version}-macos.zip"
+          app_asset="Read-Frog-${version}-macos-unsigned.zip"
           asset_names=$(gh api "repos/stellarjmr/read-frog/releases/tags/$tag" --jq '.assets[].name')
           if ! grep -Fxq "$app_asset" <<< "$asset_names" || ! grep -Fxq "read-frog.rb" <<< "$asset_names"; then
-            echo "Signed app or cask metadata is not available on $tag yet"
+            echo "Unsigned app or cask metadata is not available on $tag yet"
             echo "available=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -60,7 +60,7 @@ jobs:
             --pattern read-frog.rb \
             --dir "$RUNNER_TEMP/read-frog-release"
 
-      - name: Verify checksum, signature, and notarization
+      - name: Verify checksum and unsigned app contract
         if: steps.release.outputs.available == 'true'
         shell: bash
         run: |
@@ -74,15 +74,33 @@ jobs:
           test "$actual_sha" = "$expected_sha"
           grep -Fq 'cask "read-frog"' "$cask_file"
           grep -Fq 'version "${{ steps.release.outputs.version }}"' "$cask_file"
-          grep -Fq 'stellarjmr/read-frog/releases/download/v#{version}/Read-Frog-#{version}-macos.zip' "$cask_file"
+          grep -Fq 'stellarjmr/read-frog/releases/download/v#{version}/Read-Frog-#{version}-macos-unsigned.zip' "$cask_file"
+          grep -Fq 'ad-hoc signed and is not notarized by Apple' "$cask_file"
+          grep -Fq 'Allow unsigned extensions' "$cask_file"
 
           mkdir -p "$RUNNER_TEMP/read-frog-app"
           ditto -x -k "$app_zip" "$RUNNER_TEMP/read-frog-app"
           app_path="$RUNNER_TEMP/read-frog-app/Read Frog.app"
           test -d "$app_path"
           codesign --verify --deep --strict --verbose=2 "$app_path"
-          spctl --assess --type execute --verbose=2 "$app_path"
-          xcrun stapler validate "$app_path"
+          signature_details=$(codesign --display --verbose=4 "$app_path" 2>&1)
+          grep -Fq 'Signature=adhoc' <<< "$signature_details"
+          if grep -Fq 'Authority=' <<< "$signature_details"; then
+            echo "Unexpected Developer ID authority on the declared unsigned release" >&2
+            exit 1
+          fi
+
+          if spctl --assess --type execute --verbose=2 "$app_path"; then
+            echo "Gatekeeper unexpectedly accepted the declared unsigned release" >&2
+            exit 1
+          fi
+          echo "Gatekeeper rejection is expected for this unsigned release"
+
+          if xcrun stapler validate "$app_path"; then
+            echo "Unexpected notarization ticket on the declared unsigned release" >&2
+            exit 1
+          fi
+          echo "Missing notarization ticket is expected for this unsigned release"
 
       - name: Install and audit cask definition
         if: steps.release.outputs.available == 'true'
@@ -94,6 +112,10 @@ jobs:
           installed_tap=$(brew --repository stellarjmr/tool)
           cp Casks/read-frog.rb "$installed_tap/Casks/read-frog.rb"
           brew audit --cask --strict stellarjmr/tool/read-frog
+          brew install --cask stellarjmr/tool/read-frog
+          test -d "/Applications/Read Frog.app"
+          codesign --verify --deep --strict --verbose=2 "/Applications/Read Frog.app"
+          brew uninstall --cask stellarjmr/tool/read-frog
 
       - name: Commit cask update
         if: steps.release.outputs.available == 'true'
