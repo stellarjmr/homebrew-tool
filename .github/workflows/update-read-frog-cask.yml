@@ -104,8 +104,8 @@ jobs:
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "stellarjmr"
+          git config user.email "219479939+stellarjmr@users.noreply.github.com"
           git add Casks/read-frog.rb
           git commit -m "chore(cask): update read-frog to ${{ steps.release.outputs.version }}"
           git push origin HEAD:main
