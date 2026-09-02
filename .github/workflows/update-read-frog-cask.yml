@@ -99,7 +99,7 @@ jobs:
         if: steps.release.outputs.available == 'true'
         shell: bash
         run: |
-          if git diff --quiet -- Casks/read-frog.rb; then
+          if [ -z "$(git status --porcelain -- Casks/read-frog.rb)" ]; then
             echo "Cask is already current"
             exit 0
           fi
