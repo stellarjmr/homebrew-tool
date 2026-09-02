@@ -2,6 +2,11 @@
 
 Custom Homebrew tap.
 
+The `read-frog` cask is published automatically only after its upstream release
+contains a Developer ID-signed and notarized Safari app. The tap revalidates the
+checksum, code signature, Gatekeeper assessment, and notarization ticket before
+committing the cask.
+
 ## Usage
 
 ### Add tap

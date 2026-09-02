@@ -1,0 +1,111 @@
+name: Update Read Frog Cask
+
+on:
+  schedule:
+    - cron: "43 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: update-read-frog-cask
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Verify release and publish cask
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v7
+
+      - name: Resolve latest stable Read Frog release
+        id: release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh api repos/stellarjmr/read-frog/releases/latest --jq .tag_name 2>/dev/null || true)
+          if [ -z "$tag" ]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          version=${tag#v}
+          app_asset="Read-Frog-${version}-macos.zip"
+          asset_names=$(gh api "repos/stellarjmr/read-frog/releases/tags/$tag" --jq '.assets[].name')
+          if ! grep -Fxq "$app_asset" <<< "$asset_names" || ! grep -Fxq "read-frog.rb" <<< "$asset_names"; then
+            echo "Signed app or cask metadata is not available on $tag yet"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "available=true" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "app_asset=$app_asset" >> "$GITHUB_OUTPUT"
+
+      - name: Download release contract
+        if: steps.release.outputs.available == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/read-frog-release"
+          gh release download "${{ steps.release.outputs.tag }}" \
+            --repo stellarjmr/read-frog \
+            --pattern "${{ steps.release.outputs.app_asset }}" \
+            --pattern read-frog.rb \
+            --dir "$RUNNER_TEMP/read-frog-release"
+
+      - name: Verify checksum, signature, and notarization
+        if: steps.release.outputs.available == 'true'
+        shell: bash
+        run: |
+          release_dir="$RUNNER_TEMP/read-frog-release"
+          app_zip="$release_dir/${{ steps.release.outputs.app_asset }}"
+          cask_file="$release_dir/read-frog.rb"
+          expected_sha=$(sed -n 's/^  sha256 "\([a-f0-9]\{64\}\)"$/\1/p' "$cask_file")
+          actual_sha=$(shasum -a 256 "$app_zip" | awk '{print $1}')
+
+          test -n "$expected_sha"
+          test "$actual_sha" = "$expected_sha"
+          grep -Fq 'cask "read-frog"' "$cask_file"
+          grep -Fq 'version "${{ steps.release.outputs.version }}"' "$cask_file"
+          grep -Fq 'stellarjmr/read-frog/releases/download/v#{version}/Read-Frog-#{version}-macos.zip' "$cask_file"
+
+          mkdir -p "$RUNNER_TEMP/read-frog-app"
+          ditto -x -k "$app_zip" "$RUNNER_TEMP/read-frog-app"
+          app_path="$RUNNER_TEMP/read-frog-app/Read Frog.app"
+          test -d "$app_path"
+          codesign --verify --deep --strict --verbose=2 "$app_path"
+          spctl --assess --type execute --verbose=2 "$app_path"
+          xcrun stapler validate "$app_path"
+
+      - name: Install and audit cask definition
+        if: steps.release.outputs.available == 'true'
+        shell: bash
+        run: |
+          cp "$RUNNER_TEMP/read-frog-release/read-frog.rb" Casks/read-frog.rb
+          brew style Casks/read-frog.rb
+          brew tap stellarjmr/tool
+          installed_tap=$(brew --repository stellarjmr/tool)
+          cp Casks/read-frog.rb "$installed_tap/Casks/read-frog.rb"
+          brew audit --cask --strict stellarjmr/tool/read-frog
+
+      - name: Commit cask update
+        if: steps.release.outputs.available == 'true'
+        shell: bash
+        run: |
+          if git diff --quiet -- Casks/read-frog.rb; then
+            echo "Cask is already current"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Casks/read-frog.rb
+          git commit -m "chore(cask): update read-frog to ${{ steps.release.outputs.version }}"
+          git push origin HEAD:main
