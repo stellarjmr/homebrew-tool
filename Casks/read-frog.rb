@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 cask "read-frog" do
-  version "2.0.0"
-  sha256 "e6824839badde5f1ca6dcc2351ab081e02e7c35e4b56092b1987ae06f9dabb5a"
+  version "2.0.1"
+  sha256 "b0150e1e194d52ba446d3cb4604a0ccdccb2bfe9128a0e6ad9cc9f9e0391be80"
 
   url "https://github.com/stellarjmr/read-frog/releases/download/v#{version}/Read-Frog-#{version}-macos-unsigned.zip"
   name "Read Frog"
