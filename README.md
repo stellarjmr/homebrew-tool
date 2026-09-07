@@ -35,6 +35,7 @@ brew install --cask stellarjmr/tool/<cask-name>
 
 | Cask | Install Command |
 |------|----------------|
+| Read Frog | `brew install --cask stellarjmr/tool/read-frog` |
 | SailKeys | `brew install --cask stellarjmr/tool/sailkeys` |
 
 ### Uninstall
