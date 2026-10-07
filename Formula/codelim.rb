@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Codelim < Formula
-  desc "Minimal local Codex quota checker"
+  desc "Minimal Codex and Claude Code quota checker"
   homepage "https://github.com/stellarjmr/codelim"
 
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/codelim/releases/download/v0.1.7/codelim-v0.1.7-macos-arm64.tar.gz"
-    sha256 "4927fcee35abff3dd9ce0f0de53801fcda07fe06abe3df3a562247b2c3d536fb"
+    url "https://github.com/stellarjmr/codelim/releases/download/v0.1.8/codelim-v0.1.8-macos-arm64.tar.gz"
+    sha256 "0b33c06dcf57452091219e94f70f71527570176de08ef31d62efc5abcead9561"
   end
 
   def install
