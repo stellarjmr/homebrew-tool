@@ -28,6 +28,7 @@ brew install --cask stellarjmr/tool/<cask-name>
 |---------|----------------|
 | Bloom | `brew install stellarjmr/tool/bloom` |
 | codelim | `brew install stellarjmr/tool/codelim` |
+| diffdash | `brew install stellarjmr/tool/diffdash` |
 | hypermakey | `brew install stellarjmr/tool/hypermakey` |
 | pawd | `brew install stellarjmr/tool/pawd` |
 
