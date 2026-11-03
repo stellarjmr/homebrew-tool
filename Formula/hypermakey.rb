@@ -18,6 +18,8 @@ class Hypermakey < Formula
     run [opt_bin/"hypermakey"]
     keep_alive true
     run_type :immediate
+    # Every keystroke waits for hypermakey's event tap; don't let launchd throttle it.
+    process_type :interactive
     log_path var/"log/hypermakey.log"
     error_log_path var/"log/hypermakey.log"
   end
