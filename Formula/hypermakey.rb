@@ -3,8 +3,8 @@
 class Hypermakey < Formula
   desc "Minimal macOS Caps Lock to Hyper key daemon"
   homepage "https://github.com/stellarjmr/hypermakey"
-  url "https://github.com/stellarjmr/hypermakey/releases/download/v0.2.0/hypermakey-v0.2.0-aarch64-apple-darwin.tar.gz"
-  sha256 "7870b4ee1a934440cb53b53e77d5cf2d0f670048702c62fd949f54c31221c340"
+  url "https://github.com/stellarjmr/hypermakey/releases/download/v0.2.1/hypermakey-v0.2.1-aarch64-apple-darwin.tar.gz"
+  sha256 "e2b76b22267ae55b5e6053196167879b4d9658e8f18ea050d539b0bf5503f4d3"
   license "MIT"
 
   depends_on arch: :arm64
@@ -38,8 +38,9 @@ class Hypermakey < Formula
 
         brew services restart stellarjmr/tool/hypermakey
 
-      macOS treats every new version as a different program, so grant the
-      permission again after each upgrade.
+      If macOS denies the permission after an upgrade, switch hypermakey back on
+      in the same list. Never remove hypermakey from the list or switch it off
+      while the service is running; stop the service first.
     EOS
   end
 
