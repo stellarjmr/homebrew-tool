@@ -2,11 +2,6 @@
 
 Custom Homebrew tap.
 
-The `read-frog` cask is published automatically only after its upstream release
-contains a Developer ID-signed and notarized Safari app. The tap revalidates the
-checksum, code signature, Gatekeeper assessment, and notarization ticket before
-committing the cask.
-
 ## Usage
 
 ### Add tap
@@ -34,10 +29,7 @@ brew install --cask stellarjmr/tool/<cask-name>
 
 ### Available Casks
 
-| Cask | Install Command |
-|------|----------------|
-| Read Frog | `brew install --cask stellarjmr/tool/read-frog` |
-| SailKeys | `brew install --cask stellarjmr/tool/sailkeys` |
+_None currently._
 
 ### Uninstall
 
