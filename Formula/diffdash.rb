@@ -5,8 +5,8 @@ class Diffdash < Formula
   homepage "https://github.com/stellarjmr/diffdash"
 
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/diffdash/releases/download/v0.4.0/diffdash-v0.4.0-macos-arm64.tar.gz"
-    sha256 "b74202a88997e03120a74159567cb472358852be7c87aedc4399056f5f0931c2"
+    url "https://github.com/stellarjmr/diffdash/releases/download/v0.5.0/diffdash-v0.5.0-macos-arm64.tar.gz"
+    sha256 "2c279943737e0d02be7937eebd576f33fd77596ef4a5a4aa269d27393ed50a88"
   end
 
   def install
