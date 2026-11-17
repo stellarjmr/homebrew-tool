@@ -32,6 +32,6 @@ class Bloom < Formula
       enabled = false
     TOML
     assert_match "no available tasks selected",
-      shell_output("#{bin}/bm update --dry-run --config #{testpath}/config.toml")
+      shell_output("#{bin}/bm update --dry-run --only npm --config #{testpath}/config.toml")
   end
 end
