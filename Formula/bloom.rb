@@ -4,11 +4,11 @@ class Bloom < Formula
   license "MIT"
 
   if Hardware::CPU.arm?
-    url "https://github.com/stellarjmr/bloom/releases/download/v0.6.28/bm-darwin-arm64.tar.gz"
-    sha256 "351471de3c19b52f8f71387592a213c86dfdec22e3f63ccbedde4b48fb56ead8"
+    url "https://github.com/stellarjmr/bloom/releases/download/v0.6.29/bm-darwin-arm64.tar.gz"
+    sha256 "7d95d90a64e28f87ee016f006ea3033ca330259e998177679f91e7d5f8fdc9f0"
   else
-    url "https://github.com/stellarjmr/bloom/releases/download/v0.6.28/bm-darwin-amd64.tar.gz"
-    sha256 "124b0bc61da8ee76a7ced2ea6bb989f46b083e7b83fe4bb39c86b727d5845759"
+    url "https://github.com/stellarjmr/bloom/releases/download/v0.6.29/bm-darwin-amd64.tar.gz"
+    sha256 "39701aa5987d22fbda56178bccf2ea66fc017ef136ae488944094b3cb83374f9"
   end
 
   def install
